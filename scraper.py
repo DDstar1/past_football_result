@@ -44,11 +44,22 @@ while True:
     # Wait for a short moment for the page to load more content
     driver.implicitly_wait(2)
     # Click on the "Next page" link if it exists
+    # Wait for the iframe to be available
+
+    try:
+        iframe = driver.find_element(By.ID, "sp_message_iframe_1114687")
+        # Execute JavaScript to remove the iframe element from the DOM
+        driver.execute_script("arguments[0].remove()", iframe)
+    except Exception as e:
+        pass
+
+
     try:
         click_next_page()
     except Exception as e:
+        print(e)
         print("No more next pages found. Exiting loop.")
         break
 
-# Close the webdriver
-driver.quit()
+# # Close the webdriver
+# driver.quit()
